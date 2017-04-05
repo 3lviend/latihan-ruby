@@ -7,14 +7,23 @@ nl  = []
 arr = []
 hsh = []   
 ar2 = [] 
-    datas = ["cimahi",["a1","a2"],{},5,0.1,"bandung",true,nil,false,nil]
-	datas.each do |i|
+kurang50 = []
+lebih50 = []
+    
+    datas = ["cimahi",["a1","a2"],{},5,0.1,"bandung",true,nil,false,nil,50,20,300,20,30]
+	datas.each do |i|	
 	
-	#puts i.class
 
 	if i.class == Integer 
 		int.push(i)
 
+		if i < 50 
+			kurang50.push(i)
+		elsif i >= 50
+			lebih50.push(i)
+			
+		end	
+		
 	elsif i.class == String 
 		str.push(i)
 
@@ -39,12 +48,10 @@ ar2 = []
 		i.each do |j|
 			puts j
 			ar2.push(j.capitalize)
-
-		end
-				
-	end
-
 	
+		end	
+
+	end
 
 end
 	puts "Ini Variable String #{str}"
@@ -56,3 +63,5 @@ end
 	puts "Ini Variable Array #{arr}" 
 	puts "Ini Variable Hash #{hsh}"
 	puts "Ini Variable Array Capitalize #{ar2}"
+	puts "Ini Lebih Dari 50 #{lebih50}"
+	puts "Ini Bilangan Kurang Dari 50 #{kurang50}"
