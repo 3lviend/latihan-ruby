@@ -1,0 +1,34 @@
+Comand-git
+
+git status
+ 1035  git checkout elvin-block-3.1
+ 1036  git status
+ 1109  git clone git@github.com:3lviend/training1.git
+ 1111  git status
+ 1112  git add test.txt
+ 1113  git commit -m "first commit"
+ 1114  git push origin master 
+ 1115  git branch new_branch
+ 1116  git branch 
+ 1117  git checkout new_branch 
+ 1118  git branch 
+ 1119  git status
+ 1120  git add file2.txt
+ 1121  git commit -m "just on new brach"
+ 1122  git push origin new_branch
+ 1123  git checkout master 
+ 1124  git brach
+ 1125  git branch
+ 1126  git pull origin master 
+ 1127  git status
+ 1128  git diff file2.txt
+ 1129  git commit -m "update body" file2.txt
+ 1130  git push origin master 
+ 1133  git init
+ 1134  git status
+ 1135  git add .
+ 1136  git commit -m "first commit"
+ 1137  git push origin master 
+ 1138  git remote add origin git@github.com:3lviend/latihan-ruby.git
+ 1139  git push origin master 
+ 1140  history | grep git
