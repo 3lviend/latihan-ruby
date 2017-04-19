@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  isi: MyString
+  like: 1
+  dislike: 1
+
+two:
+  isi: MyString
+  like: 1
+  dislike: 1

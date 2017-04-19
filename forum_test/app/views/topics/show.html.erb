@@ -1,0 +1,9 @@
+<%= "Title: "+ @topic.title %>
+<br>
+<%= "description: #{@topic.description}" %>
+<br>
+published_at: <%= @topic.published_at %>
+<br>
+<%= "Total View: #{@topic.total_view}" %>
+<br>
+<%= link_to "Back", topics_url %>

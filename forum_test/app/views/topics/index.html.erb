@@ -1,0 +1,62 @@
+<a href="<%= new_topic_url %>"> New Topic </a>
+
+<br><br>
+<center>
+	<table border="2">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Like</th>
+			<th>Dislike</th>
+			<th>Total View</th>
+			<th>Created at</th>
+			<th>Update at</th>
+			<th>Published at</th>
+			<th>Action</th>
+
+		</tr>
+		<% @topic.each do |bebas| %>
+			<tr>
+				<td><%= bebas.id %></td>
+				<td><%= bebas.title %></td>
+				<td><%= bebas.description %></td>
+				<td><%= bebas.like %></td>
+				<td><%= bebas.dislike %></td>
+				<td><%= bebas.total_view %></td>
+				<td><%= bebas.created_at %></td>
+				<td><%= bebas.updated_at %></td>
+				<td><%= bebas.published_at %></td>
+				<td>
+					<%= link_to "show | ", topic_url(bebas) %>
+					<%= link_to "edit | ", edit_topic_url(bebas) %>
+					<%= link_to "delete", topic_path(bebas), method: :delete, data: {confirm: "Are you sure to delete ?"}%>
+				</td>	
+			</tr>	
+		<% end %>
+		</table>
+		</center>
+<a href="<%= new_comment_url %>"> Comments </a>
+<center>
+<table border="2">
+	<tr>
+		<th>Comments</th>
+		<th>Like</th>
+		<th>Dislike</th>
+		<th>Action</th>
+	</tr>
+	<% @comment.each do |com| %>
+	<tr>
+		<td><%=com.isi%></td>
+		<td><%=com.like%></td>
+		<td><%=com.dislike%></td>
+		<td>
+			<%= link_to "Edit |", edit_comment_url(com)%>
+			<%= link_to "Show |", comment_url(com)%>
+			<%= link_to "Delete", comment_path(com), method: :delete, data:{confirm:"Are You Sure?"}%>
+		</td>
+	</tr>
+	<%end%>
+</table>
+</center>
+
