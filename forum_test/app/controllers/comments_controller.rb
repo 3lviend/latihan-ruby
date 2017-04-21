@@ -1,9 +1,13 @@
 class CommentsController < ApplicationController
-
-	before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
+	before_action :set_comment, only: [:show, :edit, :showBaru, :update, :destroy]
+	
 	def show
-		
+		#Lewat Show
+
+	end
+
+	def showBaru
+		#Lewat Show Baru
 	end
 
 	def new

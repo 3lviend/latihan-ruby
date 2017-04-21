@@ -22,6 +22,8 @@
 	<%= f.label "Published at" %>
 	<%= f.date_field :published_at %>
 	<br>
+	<%#= f.label "User Id"%>
+	<%=f.hidden_field :user_id, value: current_user.id %>
 	<%#= text_field_tag :another %>
 	<%= f.submit "Save"%>
 	<%= link_to "Cancel", topics_url %>

@@ -1,12 +1,19 @@
 class TopicsController < ApplicationController
-	before_action :set_topic, only: [:show, :edit, :update, :destroy]
+	before_action :set_topic, only: [:show, :edit, :update, :destroy]		 
 
 	# get all data from table topic		
 	def index
-		@comment = Comment.all
-		@topic = Topic.all
-
-
+		@topic = if current_user.blank? 
+			Topic.all
+		else
+			# user_ids = User.all.map(&:id)
+			# user_ids.delete(current_user.id)
+			# Topic.where(user_id: user_ids)
+			Topic.where("user_id not in (?)", current_user.id)
+		end
+		@my_topics = Topic.where(user_id: current_user.id) if current_user.present? #unless current_user.blank?
+		# @comment = Comment.all
+		# @user = User.all
 	end
 
 	# show 1 data
@@ -34,11 +41,9 @@ class TopicsController < ApplicationController
 	def new
 		@topic = Topic.new
 	end
-
 	# create new topic to database
 	def create
 		@topic = Topic.new(topic_params)
-
 		if @topic.save
 			flash[:notice] = "Successfully created..."
 			redirect_to topics_path
@@ -69,10 +74,30 @@ class TopicsController < ApplicationController
 		flash[:notice] = "Successfully delete..."
 		redirect_to topics_path
 	end
+
+	#tampilan baru
+	def tbaru
+		@tbaru = tbaru_path
+	end
+	def tbaru2
+		@tbaru2 = tbaru2_path
+	end
 	
+	def tbaru3
+		
+	end
+	def tbaru4
+		
+	end
+
+	def buku
+		@buku = bukus_path
+	end
+
+
 	private
 	  def topic_params
-	    params.require(:topic).permit(:title, :description, :published_at)
+	    params.require(:topic).permit(:title, :description, :published_at, :user_id)
 	  end
 
 	  def set_topic

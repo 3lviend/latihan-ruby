@@ -1,0 +1,32 @@
+<a href="<%= new_buku_url %>"> New Data Buku </a>
+<br>
+<a href="<%= topics_url %>">Back</a>
+<center>
+	<table border ="1">
+		<tr>
+			<th>Id</th>
+			<th>Judul Buku</th>
+			<th>Pengarang</th>
+			<th>Penerbit</th>
+			<th>Tahun Terbit</th>
+			<th>Harga</th>
+			<th>Action</th>
+		</tr>
+
+		<% @buku.each do |b|%>
+		<tr>
+			<td><%=b.id%></td>
+			<td><%=b.judul%></td>
+			<td><%=b.pengarang%></td>
+			<td><%=b.penerbit%></td>
+			<td><%=b.tahun%></td>
+			<td><%=b.harga%></td>
+			<td>
+				<%= link_to "show | ", buku_url(b) %>
+				<%= link_to "edit | ", edit_buku_url(b) %>
+				<%= link_to "delete", buku_path(b), method: :delete, data: {confirm: "Are you sure to delete ?"}%>
+			</td>
+		</tr>
+		<%end%>
+	</table>
+</center>

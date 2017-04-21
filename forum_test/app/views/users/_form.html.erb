@@ -1,0 +1,30 @@
+<% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(user.errors.count, "error") %> prohibited
+        this Content from being saved:
+      </h2>
+      <ul>
+        <% user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!-- new: @user jadi user krna getter setter -> masih baru -->
+<!-- edit: ngambil dari database -->
+<%= form_for user, url: url, method: meth  do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :username %>
+  <%= f.text_field :username%>
+  <br>
+  <%= f.label :Password  %>
+  <%= f.text_field :pass %>
+  <br>
+  <%#= text_field_tag :another %>
+  <%= f.submit "Save"%>
+  <%= link_to "Cancel", topics_url %>
+<% end %>

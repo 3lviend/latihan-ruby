@@ -1,0 +1,12 @@
+<%= form_for :user, url: proses_login_path, method: :post  do |f| %>
+  <br>
+  <%= f.label :username %>
+  <%= f.text_field :username%>
+  <br>
+  <%= f.label :password  %>
+  <%= f.text_field :pass %>
+  <br>
+  <%#= text_field_tag :another %>
+  <%= f.submit "Login"%>
+  <%= link_to "Cancel", topics_url %>
+<% end %>

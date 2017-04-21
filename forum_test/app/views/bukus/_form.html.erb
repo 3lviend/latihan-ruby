@@ -1,0 +1,19 @@
+<%= form_for buku, url: url, method: meth  do |f| %>
+	<%= f.label "Judul Buku" %>
+	<%= f.text_field :judul %>
+	<br>
+	<%= f.label "Pengarang" %>
+	<%= f.text_field :pengarang%>
+	<br>
+	<%= f.label "Penerbit" %>
+	<%= f.text_field :penerbit %>
+	<br>
+	<%= f.label "Tahun Terbit" %>
+	<%= f.text_field :tahun %>
+	<br>
+	<%= f.label "Harga"%>
+	<%= f.text_field :harga %>
+	<br>
+	<%= f.submit "Save"%>
+	<%= link_to "Cancel", bukus_path %>
+<% end %>

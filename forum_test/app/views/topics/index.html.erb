@@ -1,7 +1,7 @@
-<a href="<%= new_topic_url %>"> New Topic </a>
 
-<br><br>
+
 <center>
+	<h2>"All Topics"</h2>
 	<table border="2">
 		<tr>
 			<th>ID</th>
@@ -13,6 +13,7 @@
 			<th>Created at</th>
 			<th>Update at</th>
 			<th>Published at</th>
+			<th>Owner</th>
 			<th>Action</th>
 
 		</tr>
@@ -27,17 +28,97 @@
 				<td><%= bebas.created_at %></td>
 				<td><%= bebas.updated_at %></td>
 				<td><%= bebas.published_at %></td>
-				<td>
-					<%= link_to "show | ", topic_url(bebas) %>
-					<%= link_to "edit | ", edit_topic_url(bebas) %>
-					<%= link_to "delete", topic_path(bebas), method: :delete, data: {confirm: "Are you sure to delete ?"}%>
-				</td>	
+				<td><%= bebas.show_username(bebas.user_id) %></td>
+				<% if current_user.present? && (current_user.id == bebas.user_id)%>
+				 <%# if current_user.id == bebas.user_id %>
+					<td>
+						<%= link_to "show | ", topic_url(bebas) %>
+						<%= link_to "edit | ", edit_topic_url(bebas) %>
+						<%= link_to "delete", topic_path(bebas), method: :delete, data: {confirm: "Are you sure to delete ?"}%>
+					</td>
+				 <%# end %>
+				<%end%>
 			</tr>	
 		<% end %>
 		</table>
 		</center>
+<br>	
+				
+<% if current_user.present? %>
+	<center>
+		<h2>My Topics</h2>	
+	</center>
+	<table border="2">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Like</th>
+			<th>Dislike</th>
+			<th>Total View</th>
+			<th>Created at</th>
+			<th>Update at</th>
+			<th>Published at</th>
+			<th>Owner</th>
+			<th>Action</th>
+
+		</tr>
+		<% @my_topics.each do |bebas| %>
+			<tr>
+				<td><%= bebas.id %></td>
+				<td><%= bebas.title %></td>
+				<td><%= bebas.description %></td>
+				<td><%= bebas.like %></td>
+				<td><%= bebas.dislike %></td>
+				<td><%= bebas.total_view %></td>
+				<td><%= bebas.created_at %></td>
+				<td><%= bebas.updated_at %></td>
+				<td><%= bebas.published_at %></td>
+				<td><%= bebas.show_username(bebas.user_id) %></td>
+				<!-- <td><%#= User.show_username(bebas.user_id) %></td>	 -->
+				<td>
+					<%= link_to "show | ", topic_url(bebas) %> 
+					<%= link_to "edit | ", edit_topic_url(bebas) %>
+					<%= link_to "delete", topic_path(bebas), method: :delete, data: {confirm: "Are you sure to delete ?"}%>
+				</td>
+
+			</tr>	
+		<% end %>
+		</table>
+		<%end%>
+
+<% if current_user.blank? %>
+	<a href="<%= login_url %>"> Login </a>
+<% else %>
+	<a href="<%= logout_url %>"> Logout </a>
+<% end %>
+<br>
+
+<% if current_user.present? %>
+	<a href="<%= new_topic_url %>"> New Topic </a>
+<% end%>
+
+<br>
+<a href="<%= new_user_url %>"> Sign Up </a>
+
+
+<br>
 <a href="<%= new_comment_url %>"> Comments </a>
-<center>
+<br>
+<a href="<%= tbaru_url %>"> Tampilan Baru 1 </a>
+<br>
+<a href="<%= tbaru2_url(Topic.first) %>">Tampilan Baru 2</a>
+<br>
+<a href="<%= tbaru3_url(Topic.first) %>">Tampilan Baru 3</a>
+<br>
+<a href="<%= topics_tbaru4_url%>">Tampilan Baru 4</a>
+<br>
+<a href="<%= bukus_url %>"> Buku </a>
+<br>
+
+
+
+<!-- <center>
 <table border="2">
 	<tr>
 		<th>Comments</th>
@@ -45,18 +126,40 @@
 		<th>Dislike</th>
 		<th>Action</th>
 	</tr>
-	<% @comment.each do |com| %>
+	<%#@comment.each do |com| %>
 	<tr>
-		<td><%=com.isi%></td>
-		<td><%=com.like%></td>
-		<td><%=com.dislike%></td>
+		<td><%#=com.isi%></td>
+		<td><%#=com.like%></td>
+		<td><%#=com.dislike%></td>
 		<td>
-			<%= link_to "Edit |", edit_comment_url(com)%>
-			<%= link_to "Show |", comment_url(com)%>
-			<%= link_to "Delete", comment_path(com), method: :delete, data:{confirm:"Are You Sure?"}%>
+			<%#= link_to "Edit |", edit_comment_url(com)%>
+			<%#= link_to "Show |", comment_url(com)%>
+			<%#= link_to "Delete", comment_path(com), method: :delete, data:{confirm:"Are You Sure?"}%>
 		</td>
 	</tr>
-	<%end%>
+	<%#end%>
 </table>
-</center>
+</center> -->
 
+
+
+<!-- <center>
+<table border="2">
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+		<th>Action</th>
+	</tr>
+	<%#@user.each do |u| %>
+	<tr>
+		<td><%#=u.id%></td>
+		<td><%#=u.name%></td>
+		<td>
+			<%#= link_to "Edit |", edit_user_url(u)%>
+			<%#= link_to "Show |", user_url(u)%>
+			<%#= link_to "Delete", user_path(u), method: :delete, data:{confirm:"Are You Sure?"}%>
+		</td>
+	</tr>
+	<%#end%>
+</table>
+</center> -->
