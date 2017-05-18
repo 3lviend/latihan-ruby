@@ -1,0 +1,27 @@
+<% if item.errors.any? %>
+	<div id="error_explanation">
+	<h2>
+		<%= pluralize(item.errors.count, "Error") %> Prohibited this data from being saved:
+	</h2>
+	   <ul>
+			<% item.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+	    </ul>
+	</div>
+<% end %>
+
+<%= form_for item, url: url, method: meth do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name%>
+	<br>
+	<%= f.label :category %>
+	 <%= f.select :category,['Software','Hardware']%>
+	<br>
+	<%= f.label :item_price %>
+	<%= f.number_field :item_price %>
+	<br>
+	
+	<%= f.submit "Save"%>
+	<%= link_to '<button type="button">Cancel</button>'.html_safe, roles_path %>
+<% end %>

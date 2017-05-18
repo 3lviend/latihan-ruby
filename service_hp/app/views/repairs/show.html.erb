@@ -1,0 +1,15 @@
+<%= "Customer Name :" + @repair.itemrepair.customer.name %>
+<br>
+<%= "Staff Name  :" + @repair.staff.name %>
+<br>
+<h4>Items For Repair   :</h4>
+<% @repair.items.each do |itm| %>
+	<%= "Name   :" + itm.name %><br>
+	<%= "Price   :" + currency(itm.item_price) %><br><br>
+<% end %>
+===========
+<br>
+<%= "Total:  " + currency(@repair.totalitem)%><br><br>
+<%= "Status      :" + @repair.status.titleize %>
+<br>
+<%= link_to '<button type="button">Back</button>'.html_safe, roles_path %>

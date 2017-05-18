@@ -1,0 +1,43 @@
+<% if repair.errors.any? %>
+	<div id="error_explanation">
+		<h2>
+			<%= pluralize(repair.errors.count, "Error") %> prohibited this data Repair from being saved:
+		</h2>
+		<ul>
+			<% repair.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+	        <% end %>
+	    </ul>
+    </div>
+ <% end %>
+
+ <%= form_for repair, url: url, method: meth do |f| %>
+ <% if repair.itemrepair.blank? %>
+      <%= f.label "Item Repair" %>
+      <%= f.select :itemrepair_id, Itemrepair.all.map{|item| [item.customer.name,item.id]}, {prompt:"Please Select"} %>
+    <br>
+ <% else %>
+    <%= "Customer Name :" + @repair.itemrepair.customer.name %>
+    <br>
+    <%= "Damage  :" + @repair.itemrepair.damage %>
+    <br>
+<% end %>   
+    <% unless current_staff.role.name == "CS"%>
+      <%= f.label "Item or Part" %>
+      <%= f.select :item_ids, Item.all.map{|item| [item.name,item.id]}, {prompt:"Please Select"}, {multiple: :true} %>
+    <%end%>
+    <br>
+    <%= f.label :status %>
+    <% case current_staff.role.name %>
+      <% when "Admin"%>
+           <%= f.select :status,[:new_entry, :on_repair, :pending_part, :repair_complete, :finish, :cancel]%>
+      <% when "CS" %>
+           <%= f.select :status,[:new_entry,:cancel,:finish]%>
+      <% when "Teknisi" %>
+           <%= f.select :status,[:on_repair, :pending_part, :repair_complete] %>
+    <% end %>
+    <br>
+    <%=f.hidden_field :staff_id, value: current_staff.id %>
+    <%= f.submit "Save"%>
+    <%= link_to '<button type="button">Cancel</button>'.html_safe, roles_path %>
+<% end %>

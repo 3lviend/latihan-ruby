@@ -1,0 +1,20 @@
+<%= "Name :" + @customer.name%>
+<br>
+<%= "Address :" + @customer.address%>
+<br>
+<%= "Telephone :" + @customer.tlp%>
+<br>
+<% @itemrepairs.each do |itemrepair|%>
+	<br>
+	<%= "Brand :" + itemrepair.brand%>
+	<br>
+	<%= "Type :" + itemrepair.type_hp%>
+	<br>
+	<%= "IMEI :" + itemrepair.imei%>
+	<br>
+	<%= "Damage :" + itemrepair.damage%>
+	<br>
+	<%= "Description :" + itemrepair.description%>
+	<br>
+<%end%>
+<%= link_to '<button type="button">Back</button>'.html_safe, roles_path %>

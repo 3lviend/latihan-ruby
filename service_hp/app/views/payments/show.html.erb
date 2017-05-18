@@ -1,0 +1,11 @@
+<%= "Payment ID :" + @payment.id.to_s %>
+<br>
+<%= "Customer Name :" + @payment.repair.itemrepair.customer.name %>
+<br>
+<%= "Staff Name :" + @payment.staff.name %>
+<br>
+=============
+<br>
+<%= "Total :" + currency(@payment.total) %>
+<br>
+<%= link_to '<button type="button">Back</button>'.html_safe, roles_path %>

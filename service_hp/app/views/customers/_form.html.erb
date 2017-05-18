@@ -1,0 +1,53 @@
+<% if customer.errors.any? %>
+ <div id="error_explanation">
+  <h2>
+  <%= pluralize(customer.errors.count, "Error") %> prohibited this data Customer from being saved:
+  </h2>
+      <ul>
+        <% customer.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form_for customer, url: url, method: meth do |f| %>
+    <h4>Data Customer</h4>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <br>
+    <%= f.label :address %>
+    <%= f.text_area :address %>
+    <br>
+    <%= f.label :telephone %>
+    <%= f.text_field :tlp %>
+    <br>
+    <h4>Detail Handphone</h4>
+  <%= f.fields_for :itemrepairs do |g|%>
+    <%= g.label :brand %>
+    <%= g.text_field :brand %>
+    <br>
+    <%= g.label :type_hp %>
+    <%= g.text_field :type_hp %>
+    <br>
+    <%= g.label :imei %>
+    <%= g.text_field :imei %>
+    <br>
+    <%= g.label :damage %>
+    <%= g.text_area :damage %>
+    <br>
+    <%= g.label :description %>
+    <%= g.text_area :description %>
+  <br>
+  <br> 
+  <% end %>
+    <br>
+  <%= f.fields_for :repair do |h| %>
+    <%= h.label :status %>
+    <%= h.select :status,[:new_entry]%>
+  <% end %>  
+    <br>
+    <%=f.hidden_field :staff_id, value: current_staff.id %>
+    <%= f.submit "Save"%>
+    <%= link_to '<button type="button">Cancel</button>'.html_safe, roles_path %>
+<% end %>

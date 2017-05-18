@@ -1,0 +1,236 @@
+<div style = "text-align: right">
+  <% unless current_staff.blank? %>
+   <%= "Welcome : " + current_staff.name %><br>
+   <%= link_to '<button type="button">Logout</button>'.html_safe, logout_path %>
+  <%end%>	
+</div>
+
+ <%= form_tag(search_customers_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search Customer" %>
+      <%= submit_tag "Search" %>
+ <% end %>
+
+<% unless current_staff.role.name == "Teknisi" %>
+	<center>
+		<h2>"Data Customers"</h2>
+		<table border="2">
+			<tr>
+				<th>No</th>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Telephone</th>
+				<th>Total All Payment</th>
+				<th>Action</th>
+			</tr>
+			</div>
+			<% @customer.each_with_index do |c,idx| %>
+			<% item_ids = c.itemrepairs.map{|itm| itm.repair.id} %>
+			<tr>
+				<td><%= idx+1 %></td>
+				<td><%= c.id %></td>
+				<td><%= c.name %></td>
+				<td><%= c.address %></td>
+				<td><%= c.tlp %></td>
+				<td><%= currency(Repair.paymentrepairs(item_ids)) %></td>
+				<td>
+					   <%= link_to '<button type="button">Show Details</button>'.html_safe,customer_url(c)%>
+					   <%= link_to '<button type="button">Edit</button>'.html_safe,edit_customer_url(c) %>
+					   <%= link_to '<button type="button">New Repair</button>'.html_safe,new_customer_itemrepair_path(c) %>
+					   <%= link_to '<button type="button">Delete</button>'.html_safe,customer_url(c),method: :delete, data: 
+					   {confirm: "Are you sure to delete ?"} %>
+				</td>
+			<% end %>
+			</tr>
+		</table>
+						<%= link_to '<button type="button">New Customer</button>'.html_safe, new_customer_path %>
+	</center>
+<%end%>
+
+	<% if current_staff.role.name == "Admin" %>
+		<center>
+			<h2>"Roles"</h2>
+			<table border="2">
+				<tr>
+					<th>No</th>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Action</th>
+				</tr>
+				<% @role.each_with_index do |r, idx| %>
+				<tr>
+					<td><%= idx+1 %></td>
+					<td><%= r.id %></td>
+					<td><%= r.name %></td>
+					<td>
+						<%= link_to '<button type="button">Show</button>'.html_safe, role_url(r)%>
+						<%= link_to '<button type="button">Edit</button>'.html_safe, edit_role_path(r)%>
+						<%= link_to '<button type="button">Delete</button>'.html_safe,role_path(r), method: :delete, 
+					   	   data: {confirm: "Are you sure to delete ?"}%>
+					</td>
+				<%end%>
+				</tr>
+			</table>
+						<%= link_to '<button type="button">New Role</button>'.html_safe, new_role_path %>
+		</center>
+    <% end %>
+
+    <% if current_staff.role.name == "Admin"%>
+		<center>
+			<h2>"Staff"</h2>
+			<table border="2">
+				<tr>
+					<th>No</th>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Username</th>
+					<th>Password</th>
+					<th>Position</th>
+					<th>Position</th>
+					<th>Action</th>
+				</tr>
+				<% @staff.each_with_index do |s,idx| %>
+				<tr>
+					<td><%= idx+1 %></td>
+					<td><%= s.id %></td>
+					<td><%= s.name %></td>
+					<td><%= s.username %></td>
+					<td><%= s.password %></td>
+					<td><%= role_name(s.role_id) %></td>
+					<td><%= s.role.name %>
+					<td>
+						<%= link_to '<button type="button">Show</button>'.html_safe, staff_url(s)%>
+						<%= link_to '<button type="button">Edit</button>'.html_safe, edit_staff_url(s)%>
+						<%= link_to '<button type="button">Delete</button>'.html_safe,staff_path(s), method: :delete, 
+					   	   data: {confirm: "Are you sure to delete ?"}%>
+					</td>
+				<%end%>
+				</tr>
+			</table>
+						<%= link_to '<button type="button">New Staff</button>'.html_safe, new_staff_path %>
+		</center>	
+	<%end%>
+
+	<% if current_staff.role.name == "Admin" %>
+		<center>
+			<h2>"Item"</h2>
+			<table border="2">
+				<tr>
+					<th>No</th>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Price</th>
+					<th>Action</th>
+				</tr>
+				<% @item.each_with_index do |i,idx| %>
+				<tr>
+					<td><%= idx+1 %></td>
+					<td><%= i.id %></td>
+					<td><%= i.name %></td>
+					<td><%= i.category %></td>
+					<td><%= currency(i.item_price) %></td>
+					<td>
+						<%= link_to '<button type="button">Show</button>'.html_safe, item_path(i)%>
+						<%= link_to '<button type="button">Edit</button>'.html_safe, edit_item_url(i)%>
+						 <%= link_to '<button type="button">Delete</button>'.html_safe,item_path(i), method: :delete, 
+					   	   data: {confirm: "Are you sure to delete ?"}%>
+					</td>
+				<%end%>
+				</tr>
+			</table>
+						<%= link_to '<button type="button">New Item</button>'.html_safe, new_item_path %>
+		</center>
+	<% end %>
+
+	<center>
+		<h2>"Repair"</h2>
+		<table border="2">
+			<tr>
+				<th>No</th>
+				<th>ID</th>
+				<th>Customer name</th>
+				<th>Damage</th>
+				<th>Status</th>
+				<th>Staff name</th>
+				<th>Action</th>
+			</tr>
+			<% status_for_teknisi %>
+			<% @repair.each_with_index do |repair,idx| %>
+			<% unless repair.itemrepair.customer.blank? %>
+			<tr>
+				<td><%= idx+1 %></td>
+				<td><%= repair.id %></td>
+				<td><%= repair.itemrepair.customer.name %></td>
+				<td><%= repair.itemrepair.damage %></td>
+				<td><%= repair.status.titleize %></td>
+				<td><%= repair.staff.name %> </td>
+				<td>
+				<% unless current_staff.role.name == "Teknisi" %>
+					<% if repair.repair_complete? %>
+						<%= link_to '<button type="button">Payment</button>'.html_safe, new_payment_url(repair_id: repair.id)%>
+					<% end %>
+				<% end %>	
+						<%= link_to '<button type="button">Show Detail</button>'.html_safe, repair_path(repair)%>
+						<%= link_to '<button type="button">Edit</button>'.html_safe, edit_repair_path(repair)%>
+					<% unless current_staff.role.name == "Teknisi" %>
+					    <%= link_to '<button type="button">Delete</button>'.html_safe,repair_path(repair), method: :delete, 
+					   	   data: {confirm: "Are you sure to delete ?"}%>
+					<% end %>
+				</td>
+			</tr>
+			<%end%>
+			<%end%>
+		</table>
+		<% if current_staff.role.name == "Admin" %>
+			<%= link_to '<button type="button">New Repair</button>'.html_safe, new_repair_path %>
+		<%end%>	
+	</center>
+
+	<% unless current_staff.role.name == "Teknisi" %>
+		<center>
+			<h2>"Payments"</h2>
+			<table border="2">
+				<tr>
+					<th>No</th>
+					<th>ID</th>
+					<th>Customer Name</th>
+					<th>Staff </th>
+					<th>Total</th>
+					<th>Total Payment</th>
+					<th>Action</th>
+				</tr>
+				<% @payment.each_with_index do |p,idx| %>
+				<tr>
+					<td><%= idx+1 %></td>
+					<td><%= p.id %></td>
+					<td><%= p.repair.itemrepair.customer.name %></td>
+					<td><%= p.staff.name %></td>
+					<td><%= currency(p.total) %></td>
+					<td><%= currency(p.totalpayment(p.id)) %></td>
+					
+					<td>
+						<%= link_to '<button type="button">Show</button>'.html_safe, payment_path(p)%>
+						<%= link_to '<button type="button">Delete</button>'.html_safe,payment_path(p), method: :delete, 
+							data: {confirm: "Are you sure to delete ?"}%>
+						<%#= link_to "Edit |", edit_payment_path(p) %>
+					</td>
+				<%end%>
+				</tr>
+			</table>
+		</center>
+
+		<center>
+		<h2>Payment >100000</h2>
+		<table border="2">
+		<tr>
+		<th>Total</th>
+		</tr>
+			<% @payment.itemtotal.each do |itemtotal| %>
+		<tr>
+			<td><%= itemtotal.total %></td>
+		</tr>
+		<%end%>
+		</table>
+		</center>
+	<%end%>

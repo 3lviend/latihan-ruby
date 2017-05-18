@@ -1,0 +1,39 @@
+<% if payment.errors.any? %>
+	<div id="error_explanation">
+	<h2>
+		<%= pluralize(payment.errors.count, "Error") %> Prohibited this data from being saved:
+	</h2>
+	   <ul>
+			<% payment.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+	    </ul>
+	</div>
+<% end %>
+
+<%= "Customer name :" + @repair.itemrepair.customer.name %>
+<h4>Item List :</h4>
+<% total = 0 %>
+<% @repair.items.each do |item| %>
+	<% total += item.item_price %>
+	<%= "Name   :" + item.name %><br>
+	<%= "Price : #{currency(item.item_price)}" %><br>
+<br>
+<% end %>
+<%= form_for payment, url: url, method: meth do |f| %>
+==============
+<br>
+	<%= "Total : Rp.#{total}" %>
+	<br>
+	<%= f.label "Staff create:" %>
+	<%= f.label :staff_id, value: current_staff.name %>
+	<br>
+	<%= f.fields_for :repair, @repair do |r| %>
+		<%= r.hidden_field :status, value: "finish" %>
+	<%end%>
+	<%= f.hidden_field :total, value: total %>
+	<%= f.hidden_field :staff_id, value: current_staff.id %>
+	<%= f.hidden_field :repair_id, value: @repair.id %>
+	<%= f.submit "Create Payment"%>
+	<%= link_to '<button type="button">Back</button>'.html_safe, roles_path %>
+<% end %>

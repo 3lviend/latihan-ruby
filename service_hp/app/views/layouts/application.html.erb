@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>Service Hp</title>
+   <link rel="icon" href="logo2.ico" />
+   <link rel="icon" type="images/png" href="logo2.png"/>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+     <% flash.each do |name, msg| %>
+        <%= content_tag :notice, msg, class: "alert-info" %>
+     <% end %>
+     <%if current_staff.present? %>
+      <%= "Total Repair :#{totalrepair}" %><br>
+    <%end%>
+    <%= yield %>
+
+  </body>
+</html>

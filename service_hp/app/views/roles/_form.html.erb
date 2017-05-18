@@ -1,0 +1,21 @@
+ <% if role.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(role.errors.count, "error") %> prohibited this new Role from being saved:
+      </h2>
+      <ul>
+        <% role.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form_for role, url: url, method: meth  do |f| %>
+	<%= f.label "Role Name" %>
+	<%= f.text_field :name %>
+	<br>
+   <%=f.hidden_field :staff_id, value: current_staff.id %>
+  <%= f.submit "Save"%>
+  <%= link_to "Cancel", roles_url %>
+  <%end%>
